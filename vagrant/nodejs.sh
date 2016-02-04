@@ -7,6 +7,14 @@ then
 
 	# install nodejs
 	apt-get install -y nodejs
+
+	# enable either node or nodejs at the command line
+	# enable node binary
+	if [ ! -e /usr/bin/node ]; then
+		ln -s /usr/bin/nodejs /usr/bin/node
+	fi
+
+	# install npm
 	apt-get install -y npm
 
 	# update npm

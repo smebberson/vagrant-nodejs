@@ -8,6 +8,9 @@ then
 	# Required for add-apt-repository
 	apt-get install -y software-properties-common build-essential
 
+	# Node.js v5
+	curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+
 	# update apt-get
 	apt-get update
 
