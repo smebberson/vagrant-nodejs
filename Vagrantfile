@@ -3,17 +3,35 @@
 
 VAGRANTFILE_API_VERSION = "2"
 
+require "json"
+
+# Load in external config
+config_file = "#{File.dirname(__FILE__)}/vagrant.json"
+vm_ext_conf = JSON.parse(File.read(config_file))
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "phusion/ubuntu-14.04-amd64"
 
+  # VM configuration for vmware_fusion
+  config.vm.provider "vmware_fusion" do |v|
+      v.vmx["memsize"] = vm_ext_conf["memory"]
+      v.vmx["numvcpus"] = vm_ext_conf["cpus"]
+  end
+
+  # VM configuration for virtualbox
+  config.vm.provider "virtualbox" do |vb|
+      vb.memory = vm_ext_conf["memory"]
+      vb.cpu = vm_ext_conf["cpus"]
+  end
+
   # define the hostname
-  config.vm.hostname = 'nodejs'
+  config.vm.hostname = vm_ext_conf["hostname"]
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.84.6"
+  config.vm.network "private_network", ip: vm_ext_conf["ip"]
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -31,16 +49,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # configuration step 0: provisioner
   config.vm.provision "shell", path: "vagrant/provisioner.sh"
 
-  # configuration step 1: set timezone to Adelaide/Australia
-  config.vm.provision "shell", path: "vagrant/timezone.sh"
+  # configuration step 1: set timezone
+  config.vm.provision "shell", path: "vagrant/timezone.sh", args: "#{vm_ext_conf['timezone']}"
 
   # configuration step 2: apt-get
   config.vm.provision "shell", path: "vagrant/apt-get.sh"
 
-  # configuration step 3: nodejs
+  # configuration step 3: git
+  config.vm.provision "shell", path: "vagrant/git.sh"
+
+  # configuration step 4: nodejs
   config.vm.provision "shell", path: "vagrant/nodejs.sh"
 
-  # configuration step 4: clean (remove unccessary data and GBs)
+  # configuration step 5: clean (remove unccessary data and GBs)
   config.vm.provision "shell", path: "vagrant/clean.sh"
 
 end

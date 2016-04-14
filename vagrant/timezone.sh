@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-# set timezone to Adelaide
+# set timezone
 
 if [ ! -e /etc/vagrant/timezone ]
   then
 
-  echo ">>> setting up timezone"
+  echo ">>> setting up timezone to $1"
 
   # set Adelaide as the local timezone
-  echo "Australia/Adelaide" | tee /etc/timezone
+  echo "$1" | tee /etc/timezone
 
   dpkg-reconfigure --frontend noninteractive tzdata
 

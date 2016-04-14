@@ -11,6 +11,9 @@ then
 	# Node.js v5
 	curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 
+	# Required for latest git
+	add-apt-repository ppa:git-core/ppa
+
 	# update apt-get
 	apt-get update
 
