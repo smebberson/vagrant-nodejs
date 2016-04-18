@@ -61,7 +61,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # configuration step 4: nodejs
   config.vm.provision "shell", path: "vagrant/nodejs.sh"
 
-  # configuration step 5: clean (remove unccessary data and GBs)
+  # configuration step 5: ngrok
+  config.vm.provision "shell", path: "vagrant/ngrok.sh"
+
+  # configuration step 6: clean (remove unccessary data and GBs)
   config.vm.provision "shell", path: "vagrant/clean.sh"
 
 end

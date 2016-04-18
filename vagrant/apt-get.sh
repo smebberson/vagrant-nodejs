@@ -6,7 +6,7 @@ then
 	echo ">>> setting up apt-get"
 
 	# Required for add-apt-repository
-	apt-get install -y software-properties-common build-essential
+	apt-get install -y software-properties-common build-essential zip unzip
 
 	# Node.js v5
 	curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
