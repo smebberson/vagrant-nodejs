@@ -1,22 +1,19 @@
 #!/usr/bin/env bash
 
-# set timezone
+source /vagrant/vagrant/bashurator/init.sh
 
-if [ ! -e /etc/vagrant/timezone ]
-  then
+TIMEZONE="$1"
 
-  echo ">>> setting up timezone to $1"
+# Setup the environment.
+configure_timezone() {
 
-  # set Adelaide as the local timezone
-  echo "$1" | tee /etc/timezone
+    # set Adelaide as the local timezone
+    echo "$TIMEZONE" | tee /etc/timezone
 
-  dpkg-reconfigure --frontend noninteractive tzdata
+    # Setup in Ubuntu
+    dpkg-reconfigure --frontend noninteractive tzdata
 
-  # only run once
-  touch /etc/vagrant/timezone
+}
 
-else
-
-  echo ">>> timezone is already setup"
-
-fi
+# Execute the function above, in an idempotent function.
+bashurator.configure "timezone" configure_timezone

@@ -1,18 +1,14 @@
 #!/usr/bin/env bash
 
-if [ ! -e /etc/vagrant/clean ]
-then
+source /vagrant/vagrant/bashurator/init.sh
 
-	echo ">>> setting up clean"
+# Setup the environment.
+configure_clean() {
 
-	# update clean
-	apt-get clean
+    # update clean
+    apt-get clean
 
-	# only run once
-	touch /etc/vagrant/clean
+}
 
-else
-
-	echo ">>> clean is already setup..."
-
-fi
+# Execute the function above, in an idempotent function.
+bashurator.configure "clean" configure_clean

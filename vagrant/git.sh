@@ -1,18 +1,14 @@
 #!/usr/bin/env bash
 
-if [ ! -e /etc/vagrant/git ]
-then
+source /vagrant/vagrant/bashurator/init.sh
 
-	echo ">>> setting up git"
+# Setup the environment.
+configure_git() {
 
-	# install git
-	apt-get install -y git
+    # Install Git.
+    apt-get install -y git
 
-	# only run once
-	touch /etc/vagrant/git
+}
 
-else
-
-	echo ">>> git is already setup"
-
-fi
+# Execute the function above, in an idempotent function.
+bashurator.configure "git" configure_git

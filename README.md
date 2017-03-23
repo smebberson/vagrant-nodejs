@@ -2,9 +2,17 @@
 
 A simple and general purpose Node.js VM.
 
-- Node.js v5.x
-- NPM v3.x
+- Node.js v7.x
+- NPM v4.x
 - Git v2.x
+
+## Requirements
+
+There are few requirements for AEMIS development, as most of the dependencies are automatically installed for you, via Vagrant.
+
+- Vagrant
+- VMWare Fusion (and Vagrant-VMware provider plugin) or Virtualbox
+- Vagrant Host Manager plugin (execute `vagrant plugin install vagrant-hostmanager` to install).
 
 ## Usage
 

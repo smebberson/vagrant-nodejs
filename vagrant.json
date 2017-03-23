@@ -1,9 +1,10 @@
 {
-    "hostname": "nodejs.local",
-    "ip": "192.168.84.6",
-    "memory": 1024,
-    "env": {
-        "NODE_ENV": "development"
-    },
-    "timezone": "Australia/Adelaide"
+  "hostname": "nodejs",
+  "hostAliases": "nodejs.local",
+  "memory": 1024,
+  "cpus": 1,
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "timezone": "Australia/Adelaide"
 }

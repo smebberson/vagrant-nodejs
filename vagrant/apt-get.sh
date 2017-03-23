@@ -1,27 +1,26 @@
 #!/usr/bin/env bash
 
-if [ ! -e /etc/vagrant/apt-get ]
-then
+source /vagrant/vagrant/bashurator/init.sh
 
-	echo ">>> setting up apt-get"
+# Setup the environment.
+configure_apt_get() {
 
-	# Required for add-apt-repository
-	apt-get install -y software-properties-common build-essential
+    # Update apt-get.
+    apt-get update
 
-	# Node.js v5
-	curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+    # Required for add-apt-repository.
+    apt-get install -y software-properties-common build-essential zip unzip curl
 
-	# Required for latest git
-	add-apt-repository ppa:git-core/ppa
+    # Node.js v7
+    curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 
-	# update apt-get
-	apt-get update
+    # Required for latest git
+    add-apt-repository ppa:git-core/ppa
 
-	# only run once
-	touch /etc/vagrant/apt-get
+    # Update apt-get.
+    apt-get update
 
-else
+}
 
-	echo ">>> apt-get is already setup..."
-
-fi
+# Execute the function above, in an idempotent function.
+bashurator.configure "apt-get" configure_apt_get
